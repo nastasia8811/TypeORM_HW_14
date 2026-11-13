@@ -1,4 +1,4 @@
-import { Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm'
+import { Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn, Index } from 'typeorm'
 import { User } from './User.ts'
 
 @Entity('newsposts')
@@ -6,7 +6,7 @@ export class Newspost {
   @PrimaryGeneratedColumn()
   id!: number
 
-  @Column({ type: 'varchar', length: 50 })
+  @Column({ type: 'varchar', length: 50, name: 'header' })
   title!: string
 
   @Column({ type: 'varchar', length: 256 })
@@ -21,6 +21,10 @@ export class Newspost {
   @CreateDateColumn()
   createDate!: Date
 
+  @Column({ type: 'boolean', default: false })
+  deleted!: boolean
+
+  @Index()
   @ManyToOne(() => User, { nullable: false })
   author!: User
 }

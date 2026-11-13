@@ -14,4 +14,7 @@ export class User {
 
   @CreateDateColumn()
   createDate!: Date
+
+  @Column({ type: 'boolean', default: false })
+  deleted!: boolean
 }

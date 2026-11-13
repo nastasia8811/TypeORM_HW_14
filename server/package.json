@@ -10,7 +10,12 @@
   "private": "true",
   "scripts": {
     "start": "nodemon server.ts",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "migration:generate": "tsx --env-file=.env ../node_modules/typeorm/cli.js migration:generate -d src/db/data-source.ts",
+    "migration:create": "tsx ../node_modules/typeorm/cli.js migration:create",
+    "migration:run": "tsx --env-file=.env ../node_modules/typeorm/cli.js migration:run -d src/db/data-source.ts",
+    "migration:revert": "tsx --env-file=.env ../node_modules/typeorm/cli.js migration:revert -d src/db/data-source.ts",
+    "seed": "tsx --env-file=.env src/db/seed.ts"
   },
   "nodemonConfig": {
     "ext": "ts,json",
@@ -22,6 +27,7 @@
     ]
   },
   "devDependencies": {
+    "@faker-js/faker": "^10.6.0",
     "@types/express": "^5.0.6",
     "@types/jsonwebtoken": "^9.0.10",
     "@types/node": "^26.6.5",

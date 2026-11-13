@@ -3,25 +3,11 @@ import { config } from './config.ts'
 import express, { type Express, type Request, type Response, type NextFunction } from 'express'
 import newspostsRouter from './src/routes/newsposts.router.ts'
 import { ErrorHandler } from './src/error/errorHandler.ts'
-import winston from 'winston'
 import { ValidationError } from './src/error/errorHandler.ts'
 import passport from 'passport'
 import authRoutes from './src/routes/auth.router.ts'
 import { AppDataSource } from './src/db/data-source.ts'
-
-export const logger = winston.createLogger({
-  level: 'info',
-  format: winston.format.combine(
-    winston.format.timestamp(),
-    winston.format.printf(
-      ({ timestamp, level, message }) => `${timestamp} [${level.toUpperCase()}] ${message}`
-    )
-  ),
-  transports: [
-    new winston.transports.Console(),
-    new winston.transports.File({ filename: 'logs/app.log' }),
-  ],
-})
+import { logger } from './src/logger.ts'
 
 const app: Express = express()
 const clientDistPath = path.join(import.meta.dirname, '../client/dist')
